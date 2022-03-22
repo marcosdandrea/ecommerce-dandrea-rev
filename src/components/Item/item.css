@@ -1,0 +1,33 @@
+.paragraph{
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.noStock{
+    position: absolute;
+    background-color: #383838e3;
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.stockAvailable{
+    display: none;
+}
+
+.category{
+    font-size: 0.6rem !important;
+    font-weight: bold !important;
+    font-style: italic !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.itemPrice{
+    font-size: 0.8rem !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+}

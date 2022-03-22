@@ -1,0 +1,10 @@
+
+.filterButton{
+    color: #cfcfcf !important;
+    text-transform: none !important;
+    height: 2rem;
+}
+
+.menuButtons{
+    text-transform:capitalize;
+}

@@ -1,0 +1,29 @@
+.cartItem{
+    max-width: none !important;
+    display: flex;
+    align-items: center;
+}
+
+.cartImg{
+    width:auto !important;
+}
+
+.deleteIcon{
+    right: 0 !important;
+    padding: 1rem
+}
+
+.deleteIconContainer{
+    position: relative !important;
+    background-color: #c61e2c !important;
+    color: white !important;
+    height: 140px !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    width: 55px !important  
+}
+
+.deleteIconContainer:hover{
+    background-color: #e90a1d;
+}

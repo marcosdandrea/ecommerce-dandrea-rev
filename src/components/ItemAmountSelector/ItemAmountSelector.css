@@ -1,0 +1,51 @@
+.amountSelectorWrapper{
+    height: 4rem;
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.amountSelector{
+    justify-content: space-between !important;
+    border-radius: 0.3rem;
+    min-width: 30%;
+    overflow: hidden;
+    height: 2.2rem;
+    box-shadow: 0px 2px 2px -1px rgb(0 0 0 / 11%), 0px 3px 3px 0px rgb(0 0 0 / 15%), 0px 1px 8px 0px rgb(0 0 0 / 9%);
+}
+
+.addButton{
+    width:70%;
+    height:2.2rem
+}
+
+.controlButtonMinus{
+    justify-content: flex-end !important;
+    padding-right: 11px !important;
+    border-radius:0px !important;
+    margin-right: 0px !important;
+    width: 1rem !important;
+    min-width: 2rem!important;
+}
+
+.controlButtonPlus{
+    justify-content: flex-start !important;
+    padding-left: 11px !important;
+    border-radius: 0px !important;
+    margin-left: 0px !important;
+    min-width: 2rem!important;
+}
+
+.displaySelector{
+    user-select: none;
+    min-width: 3rem;
+    text-align:center;
+}
+
+.btnStyle{
+    text-decoration: none;
+    text-align: center;
+}

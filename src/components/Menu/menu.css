@@ -1,0 +1,30 @@
+.menu{
+    display: flex;
+    position: relative;
+    width: 40%;
+    gap: 3rem;
+    justify-content: center;
+}
+
+.menuItem{
+    display: flex;
+    position: relative;
+    color: #555555;
+    cursor: pointer;
+    transition: color 0.5s ease;
+    text-decoration: none !important;
+}
+
+.active{
+    display: flex;
+    position: relative;
+    color: #d3d3d3;
+    cursor: pointer;
+    transition: color 0.5s ease;
+}
+
+.menuItem:hover{
+    color:#ffffff
+}
+
+

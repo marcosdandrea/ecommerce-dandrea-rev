@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
-import { Typography, Stack, CardMedia, Paper } from '@mui/material';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Typography, Stack, CardMedia, Button } from '@mui/material';
 import ItemAmountSelector from "../ItemAmountSelector/ItemAmountSelector"
 import './itemDetail.css'
 
@@ -19,13 +20,11 @@ export default function ItemDetail(props) {
                 "itemImg": currentItem.image,
                 "itemCat": currentItem.category
             }
-        )
-        
+        )        
     }
 
       
     return (
-
         <Stack
             direction="column"
             spacing={2}
@@ -72,13 +71,17 @@ export default function ItemDetail(props) {
                     >{currentItem.paragraph}</Typography>
                 </Stack>
             </Stack>
-            <ItemAmountSelector 
+            {buyMode == false ? <ItemAmountSelector 
                     buyMode={buyMode}
                     initialValue={0}
                     stock={currentItem.stock}
                     onAdd={onAdd}
-            />
+            /> : <Link to="/cart" className="btnGoToCart">
+            <Button
+            variant="contained"
+            color="success"
+            >Terminar Compra</Button>
+            </Link>}
         </Stack>
-
     )
 }

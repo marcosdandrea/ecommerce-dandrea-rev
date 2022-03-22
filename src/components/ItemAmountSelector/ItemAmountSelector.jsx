@@ -5,12 +5,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import './ItemAmountSelector.css'
 
-export default function ItemCount({ buyMode, initialValue = 0, stock = 0, onAdd }) {
+export default function ItemCount({ initialValue = 0, stock = 0, onAdd }) {
 
     let [selectedAmount, setSelectedAmount] = useState(initialValue);
     let [stockAmount, setStockAmount] = useState(stock);
-
-    console.log (buyMode)
 
     function addItems(evnt) {
         evnt.preventDefault();
@@ -32,8 +30,6 @@ export default function ItemCount({ buyMode, initialValue = 0, stock = 0, onAdd 
     function preventDefault(evnt) {
         evnt.preventDefault();
     }
-
-    if (!buyMode) {
 
         return (
             <div onClick={preventDefault}>
@@ -76,15 +72,5 @@ export default function ItemCount({ buyMode, initialValue = 0, stock = 0, onAdd 
                 </Stack>
             </div>
         )
-    } else {
-        return (
-            <Link to="../cart" className="btnStyle">
-                <Button
-                    variant="contained"
-                    disableElevation
-                    className="controlButtonPlus"
-                >Terminar Compra</Button>
-            </Link>
-        )
-    }
+    
 }

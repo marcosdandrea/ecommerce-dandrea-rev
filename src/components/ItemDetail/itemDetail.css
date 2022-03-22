@@ -40,3 +40,8 @@
     font-size:1.0rem !important;
     font-weight:bold !important;
 }
+
+.btnGoToCart{
+    text-decoration: none;
+    text-align: center;
+}

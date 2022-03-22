@@ -5,7 +5,7 @@ import ItemCategories from '../ItemCategories/ItemCategories'
 
 import "./itemCategoriesContainer.css"
 
-export default function ItemCateogriesContainer(props) {
+export default function ItemCateogriesContainer() {
   
   const { categoryID } = useParams()
   const [allProducts, setAllProds] = useState([])
@@ -25,14 +25,9 @@ export default function ItemCateogriesContainer(props) {
     setFilteredProds (allProducts.filter(p => p.category === categoryID))
   }, [categoryID])
 
-  const onAdd = (params) => {
-    props.onAdd(params)
-}
-
   return(
     <ItemCategories
       prods={filteredProds}
-      onAdd={onAdd}
     />
   )
 }

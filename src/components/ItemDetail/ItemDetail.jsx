@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Typography, Stack, CardMedia, Button } from '@mui/material';
 import ItemAmountSelector from "../ItemAmountSelector/ItemAmountSelector"
+import CartContext from '../contexts/CartContext'
 import './itemDetail.css'
 
 export default function ItemDetail(props) {
-
+    
+    const { onAdd } = useContext (CartContext)
     const [ buyMode, setBuyMode ] = useState(false)
     const currentItem = props.itemData;
 
-    const onAdd = (selectedAmount) => {
+    const _onAdd = (selectedAmount) => {
         setBuyMode(true)
-        props.onAdd(
+        onAdd(
             {
                 "itemID": currentItem.id,
                 "itemName": currentItem.title,
@@ -75,7 +77,7 @@ export default function ItemDetail(props) {
                     buyMode={buyMode}
                     initialValue={0}
                     stock={currentItem.stock}
-                    onAdd={onAdd}
+                    onAdd={_onAdd}
             /> : <Link to="/cart" className="btnGoToCart">
             <Button
             variant="contained"

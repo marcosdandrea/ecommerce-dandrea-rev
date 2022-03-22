@@ -4,10 +4,6 @@ import Item from '../Item/Item'
 import './itemList.css'
 export default function ItemList(props) {
 
-    const onAdd = (selectedAmount) => {
-        props.onAdd(selectedAmount)
-    }
-
     return (
         <div className="itemList">
             {props.prods.map((prod) => {
@@ -22,7 +18,6 @@ export default function ItemList(props) {
                             altImg={prod.altImg}
                             stock={prod.stock}
                             category={prod.category}
-                            onAdd={onAdd}
                         />
                     </Link>
                 )

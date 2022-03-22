@@ -7,7 +7,7 @@ import './itemListContainer.css'
 import ItemListFiltersContainer from '../ItemListFiltersContainer/ItemListFiltersContainer';
 import AlertDialog from '../AlertDialog/AlertDialog';
 
-export default function ItemListContainer(props) {
+export default function ItemListContainer({props}) {
 
     const [allProds, setAllProds] = useState([])
     const [prods, setProds] = useState([])
@@ -26,10 +26,6 @@ export default function ItemListContainer(props) {
                 setProds(res)
             })
     }, [])
-
-    const onAdd = (selectedAmount) => {
-        props.onAdd(selectedAmount)
-    }
 
     const onFilterCategory = (filter) => {
         categoryFilter = filter;
@@ -101,7 +97,6 @@ export default function ItemListContainer(props) {
                         onFilterPrice={onFilterPrice}
                     />
                     <ItemList
-                        onAdd={onAdd}
                         prods={prods}
                     />
                 </div>

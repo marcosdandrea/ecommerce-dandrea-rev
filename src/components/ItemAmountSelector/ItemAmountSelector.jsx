@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import CartContext from '../contexts/CartContext'
 import './ItemAmountSelector.css'
 
 export default function ItemCount({ initialValue = 0, stock = 0, onAdd }) {

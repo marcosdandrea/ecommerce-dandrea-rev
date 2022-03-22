@@ -8,6 +8,7 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import CartListContainer from './components/CartListContainer/CartListContainer';
 import ItemCategoriesContainer from './components/ItemCategoriesContainer/ItemCategoriesContainer';
+import CartContext from './components/contexts/CartContext';
 
 function App() {
 
@@ -18,8 +19,8 @@ function App() {
     No entiendo que estoy haciendo mal.
   */
 
-  let [itemsInCart, setItemsInCart] = useState([])
 
+  let [itemsInCart, setItemsInCart] = useState([])
   let [number, setNumber] = useState(0)
 
   function onAdd(itemsToAdd) {
@@ -51,20 +52,25 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Stack
-          direction="column"
-          spacing={2}>
-          <Header
-            itemsInCart={itemsInCart} />
-          <Routes>
-            <Route exact path="/" element={<HomeSection />} />
-            <Route exact path="/shop" element={<ItemListContainer onAdd={onAdd} />} />
-            <Route exact path="/shop/:productId" element={<ItemDetailContainer onAdd={onAdd} />} />
-            <Route exact path="/shop/categories/:categoryID" element={<ItemCategoriesContainer onAdd={onAdd}/>} />
-            <Route exact path="/cart" element={<CartListContainer itemsInCart={itemsInCart} onDelete={onDelete} />} />
-          </Routes>
+        <CartContext.Provider value={{
+          onAdd,
+          onDelete
+        }}>
+          <Stack
+            direction="column"
+            spacing={2}>
+            <Header
+              itemsInCart={itemsInCart} />
+            <Routes>
+              <Route exact path="/" element={<HomeSection />} />
+              <Route exact path="/shop" element={<ItemListContainer />} />
+              <Route exact path="/shop/:productId" element={<ItemDetailContainer />} />
+              <Route exact path="/shop/categories/:categoryID" element={<ItemCategoriesContainer />} />
+              <Route exact path="/cart" element={<CartListContainer itemsInCart={itemsInCart} />} />
+            </Routes>
 
-        </Stack>
+          </Stack>
+        </CartContext.Provider>
       </BrowserRouter>
     </div>
   );

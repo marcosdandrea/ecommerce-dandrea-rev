@@ -6,13 +6,14 @@ import { getFetch } from '../../data/Database'
 import { Typography, Button, Stack } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached';
 import './itemDetailContainer.css'
+import { getFirestore, doc, getDoc } from 'firebase/firestore'
 
 export default function ItemDetailContainer() {
 
   const { productId } = useParams();
   const [CurrentItem, setCurrentItem] = useState([]);
 
-  useEffect(() => {
+/*   useEffect(() => {
 
     getFetch
       .then((res) => {
@@ -22,7 +23,21 @@ export default function ItemDetailContainer() {
     return () => {
     }
 
-  }, [productId])
+  }, [productId]) */
+
+
+  useEffect(() => {
+    const db = getFirestore();
+    const queryDb = doc(db, 'products', productId)
+    getDoc(queryDb)
+      .then((results) => {
+        const Prod = ({
+          id: results.id,
+          ...results.data()
+        })
+        setCurrentItem(Prod)
+      })
+  }, [])
 
   if (CurrentItem.length === 0) {
     return (<div className="loadingStyle"><Typography><strong>Loading </strong> </Typography><CachedIcon className="loadingIcon" /></div>)
@@ -33,10 +48,10 @@ export default function ItemDetailContainer() {
           itemData={CurrentItem}
         />
         <Link to={"/shop"} className="backBtn">
-          <Button 
-          variant="contained"
+          <Button
+            variant="contained"
           >Back</Button>
-        </Link>     
+        </Link>
       </Stack>
     )
   }

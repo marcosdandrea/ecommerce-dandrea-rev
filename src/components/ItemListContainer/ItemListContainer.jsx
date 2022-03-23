@@ -6,6 +6,8 @@ import CachedIcon from '@mui/icons-material/Cached';
 import './itemListContainer.css'
 import ItemListFiltersContainer from '../ItemListFiltersContainer/ItemListFiltersContainer';
 import AlertDialog from '../AlertDialog/AlertDialog';
+import { collection, getFirestore, getDocs } from 'firebase/firestore'
+
 
 export default function ItemListContainer({props}) {
 
@@ -17,7 +19,7 @@ export default function ItemListContainer({props}) {
     let [priceFilter, setPriceFilter] = useState([0, 9999999])
     let [categoryFilter, setCategoryFilter] = useState("All products")
 
-    useEffect(() => {
+/*      useEffect(() => {
         getFetch
             .then((res) => {
                 setMinPrice (res.reduce((acc, prod) => acc = acc < prod.price ? acc : prod.price))
@@ -25,7 +27,20 @@ export default function ItemListContainer({props}) {
                 setAllProds(res)
                 setProds(res)
             })
-    }, [])
+    }, [])  */
+
+    useEffect(() => {
+        const db = getFirestore();
+        const queryCollection = collection(db, 'products')
+        getDocs(queryCollection)
+            .then((results) => {
+                const prods = results.docs.map( item => ({id: item.id, ...item.data()}))
+                setMinPrice (prods.reduce((acc, prod) => acc = acc < prod.price ? acc : prod.price))
+                setMaxPrice (prods.reduce((acc, prod) => acc = acc > prod.price ? acc : prod.price))
+                setAllProds(prods)
+                setProds(prods)
+            })
+      },[])
 
     const onFilterCategory = (filter) => {
         categoryFilter = filter;
@@ -33,8 +48,7 @@ export default function ItemListContainer({props}) {
         setCategoryFilter(filter)
     }
 
-    const onFilterPrice = (filter) => {
-        
+    const onFilterPrice = (filter) => {        
         priceFilter = filter;
         applyFilters()
         setPriceFilter(filter)

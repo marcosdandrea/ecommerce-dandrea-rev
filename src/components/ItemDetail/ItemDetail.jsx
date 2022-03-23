@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Typography, Stack, CardMedia, Button } from '@mui/material';
 import ItemAmountSelector from "../ItemAmountSelector/ItemAmountSelector"
-import CartContext from '../contexts/CartContext'
+import {CartContext} from '../contexts/CartContext'
 import './itemDetail.css'
 
 export default function ItemDetail(props) {
@@ -73,7 +73,7 @@ export default function ItemDetail(props) {
                     >{currentItem.paragraph}</Typography>
                 </Stack>
             </Stack>
-            {buyMode == false ? <ItemAmountSelector 
+            {buyMode === false ? <ItemAmountSelector 
                     buyMode={buyMode}
                     initialValue={0}
                     stock={currentItem.stock}

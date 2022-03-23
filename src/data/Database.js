@@ -1,7 +1,7 @@
 
 const database = [
     {
-        id: 1,
+        id: "1IqCrbemEAAOZ7CDvD1t",
         price: 10380.80,
         title: "Bsn - Syntha-6", 
         paragraph: "Syntha 6 Isolate BSN es para reestructurar las fibras que se dañan durante el entrenamiento. Es una mezcla de proteína de rápida y lenta absorción. Mezcla 50/50 de proteína de suero y aislado de proteínas lácteas (una fuente de caseína de alta calidad de lenta digestión), con la matriz de proteínas única Isolast™ ofrece una mezcla de proteínas de rápida y lenta liberación que promueve un ritmo moderado de liberación de aminoácidos para alimentar los músculos activos",

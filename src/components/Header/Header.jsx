@@ -1,9 +1,8 @@
 import Navbar from "../Navbar/Navbar.jsx"
 
-export default function Header(props){
+export default function Header(){
 
     return (
-        <Navbar 
-        itemsInCart={props.itemsInCart}/>
+        <Navbar />
     )
 }

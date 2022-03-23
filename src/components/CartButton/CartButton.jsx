@@ -1,27 +1,24 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext} from 'react'
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Box from '@mui/material/Box';
 import StyledBadge from './badge'
 import {Link} from 'react-router-dom'
+import {CartContext} from '../contexts/CartContext'
 import './cartButton.css'
 
-export default function CartButton(props) {
+export default function CartButton() {
 
+  const { itemsInCart } = useContext (CartContext)
   const [itemsAmount, setItemsAmount] = useState(0)
 
   useEffect(() => {
-    setItemsAmount(countItemsInCart())    
-  },[props])
-
-  const countItemsInCart = () => {
     let acumulator = 0;
-    props.itemsInCart.forEach(item => {
+    itemsInCart.forEach(item => {
         acumulator += item.itemAmount;
       })
-      return(acumulator)
-  }
+    setItemsAmount(acumulator)    
+  },[itemsInCart])
 
   return (
     <Box

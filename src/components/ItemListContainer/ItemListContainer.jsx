@@ -1,98 +1,76 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ItemList from '../ItemList/ItemList'
-import { getFetch } from '../../data/Database'
 import { Typography } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached';
 import './itemListContainer.css'
 import ItemListFiltersContainer from '../ItemListFiltersContainer/ItemListFiltersContainer';
 import AlertDialog from '../AlertDialog/AlertDialog';
-import { collection, getFirestore, getDocs } from 'firebase/firestore'
+import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
 
 
-export default function ItemListContainer({props}) {
+export default function ItemListContainer() {
 
-    const [allProds, setAllProds] = useState([])
-    const [prods, setProds] = useState([])
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(0);
-
-    let [priceFilter, setPriceFilter] = useState([0, 9999999])
-    let [categoryFilter, setCategoryFilter] = useState("All products")
-
-/*      useEffect(() => {
-        getFetch
-            .then((res) => {
-                setMinPrice (res.reduce((acc, prod) => acc = acc < prod.price ? acc : prod.price))
-                setMaxPrice (res.reduce((acc, prod) => acc = acc > prod.price ? acc : prod.price))
-                setAllProds(res)
-                setProds(res)
-            })
-    }, [])  */
+    const [products, setProducts] = useState([0])
+    const [priceFilter, setPriceFilter] = useState([0, 9999999])
+    const [categoryFilter, setCategoryFilter] = useState("All products")
+    const [filtering, setFiltering] = useState(false)
 
     useEffect(() => {
-        const db = getFirestore();
-        const queryCollection = collection(db, 'products')
+        const database = getFirestore();
+        const queryCollection = collection(database, "products")
         getDocs(queryCollection)
-            .then((results) => {
-                const prods = results.docs.map( item => ({id: item.id, ...item.data()}))
-                setMinPrice (prods.reduce((acc, prod) => acc = acc < prod.price ? acc : prod.price))
-                setMaxPrice (prods.reduce((acc, prod) => acc = acc > prod.price ? acc : prod.price))
-                setAllProds(prods)
-                setProds(prods)
-            })
-      },[])
+            .then(resp => setProducts(resp.docs.map(item => ({ id: item.id, ...item.data() }))))
+    }, [])
+
+    useEffect(() => {
+        setFiltering(false)
+    }, [products])
 
     const onFilterCategory = (filter) => {
-        categoryFilter = filter;
-        applyFilters()
+        setFiltering(true)
         setCategoryFilter(filter)
     }
 
-    const onFilterPrice = (filter) => {        
-        priceFilter = filter;
-        applyFilters()
+    const onFilterPrice = (filter) => {
+        setFiltering(true)
         setPriceFilter(filter)
     }
 
-    const applyFilters = () => {
-        let filteredProds = 0;
-        if (categoryFilter.toLowerCase() === "all products") {
-            filteredProds = allProds.filter((item) => {
-                return (
-                    item.price >= priceFilter[0] &&
-                    item.price <= priceFilter[1]
-                )
-            })
+    useEffect(() => {
+        const database = getFirestore();
+        //console.log (categoryFilter, priceFilter)
+        let databaseQuery
+        if (categoryFilter.toLocaleLowerCase() == "all products") {
+            databaseQuery = query(
+                collection(database, "products"),
+                where("price", "<=", priceFilter[1]),
+                where("price", ">=", priceFilter[0]),
+            );
         } else {
-            filteredProds = allProds.filter((item) => {
-                return (
-                    item.category.toLowerCase() === categoryFilter.toLowerCase() &&
-                    item.price > priceFilter[0] &&
-                    item.price < priceFilter[1]
-                )
-            })
+            databaseQuery = query(
+                collection(database, "products"),
+                where("price", "<=", priceFilter[1]),
+                where("price", ">=", priceFilter[0]),
+                where("category", "==", categoryFilter.toLocaleLowerCase())
+            );
+        }
+        getDocs(databaseQuery).then((results) => {
+            setProducts(results.docs.map(res => ({ id: res.id, ...res.data() })))
+        })
+    }, [categoryFilter, priceFilter])
 
-        }
-        if (filteredProds.length !== 0) {
-            setProds(filteredProds)
-        } else {
-            setProds(["none"]);
-        }
-    }
 
     const clearFilters = () => {
-        categoryFilter = "All products"
-        priceFilter = [minPrice, maxPrice]
-        applyFilters()
-        setPriceFilter(priceFilter)
-        setCategoryFilter(categoryFilter)
+        setPriceFilter([0, 9999999])
+        setCategoryFilter("All products")
     }
 
 
-    if (prods.length === 0) {
+    if (products[0] === 0) {
+
         return (<div className="loadingStyle"><Typography><strong>Loading </strong> </Typography><CachedIcon className="loadingIcon" /></div>)
     } else {
-        if (prods[0] === "none") {
+        if (products.length === 0) {
             return (
                 <AlertDialog
                     title="No hay resultados"
@@ -103,15 +81,16 @@ export default function ItemListContainer({props}) {
         } else {
             return (
                 <div className="itemListContainer">
+                    <div className={filtering ? "showProcesing processing" : "hideProcesing processing"} >
+                        <Typography><strong>Loading </strong> </Typography><CachedIcon className="loadingIcon" />
+                    </div>
                     <ItemListFiltersContainer
-                        prods={prods}
-                        minPrice={minPrice}
-                        maxPrice={maxPrice}
+                        products={products}
                         onFilterCategory={onFilterCategory}
                         onFilterPrice={onFilterPrice}
                     />
                     <ItemList
-                        prods={prods}
+                        prods={products}
                     />
                 </div>
             )

@@ -8,7 +8,7 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import CartListContainer from './components/CartListContainer/CartListContainer';
 import ItemCategoriesContainer from './components/ItemCategoriesContainer/ItemCategoriesContainer';
 import getFirestoreApp from './components/firebase/config';
-import {CartContextProvider} from './components/contexts/CartContext'
+import { CartContextProvider } from './components/contexts/CartContext'
 
 getFirestoreApp()
 
@@ -17,20 +17,20 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <CartContextProvider>
-          <Stack
-            direction="column"
-            spacing={2}>
-            <Header />
-            <Routes>
-              <Route exact path="/" element={<HomeSection />} />
-              <Route exact path="/shop" element={<ItemListContainer />} />
-              <Route exact path="/shop/:productId" element={<ItemDetailContainer />} />
-              <Route exact path="/shop/categories/:categoryID" element={<ItemCategoriesContainer />} />
-              <Route exact path="/cart" element={<CartListContainer />} />
-            </Routes>
-          </Stack>
-        </CartContextProvider>
+          <CartContextProvider>
+            <Stack
+              direction="column"
+              spacing={2}>
+              <Header />
+              <Routes>
+                <Route exact path="/" element={<HomeSection />} />
+                <Route exact path="/shop" element={<ItemListContainer />} />
+                <Route exact path="/shop/:productId" element={<ItemDetailContainer />} />
+                <Route exact path="/shop/categories/:categoryID" element={<ItemCategoriesContainer />} />
+                <Route exact path="/cart" element={<CartListContainer />} />
+              </Routes>
+            </Stack>
+          </CartContextProvider>
       </BrowserRouter>
     </div>
   );

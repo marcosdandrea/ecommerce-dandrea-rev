@@ -1,35 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Card, Button, Menu, MenuItem } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import './itemListFilterCategory.css'
 
-export default function ItemListFilterCategory({ prods, onFilterCategory }) {
+export default function ItemListFilterCategory({ categoryFilters, onFilterCategory }) {
 
-    const [categories, setCategories] = useState([])
-    const [currentCategory, setCurrentCategory] = useState("")
+    const [currentCategory, setCurrentCategory] = useState("All products")
     const [anchorEl, setAnchorEl] = React.useState(null);
-
-    useEffect(() => {
-        prods.forEach(item => {
-            if(!categories.includes(item.category)) {
-                categories.push(item.category);
-            }
-        })
-        setCategories(categories);
-    }, [prods])
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-      
+      setAnchorEl(event.currentTarget);      
     };
 
     const handleClose = (event) => {
         setAnchorEl(null);
         if (event.currentTarget.innerText === "") return
-        //setCurrentCategory(event.currentTarget.innerText)      
-        //onFilterCategory(event.currentTarget.innerText)
+        setCurrentCategory(event.currentTarget.innerText)      
+        onFilterCategory(event.currentTarget.innerText)
       };
 
     return (
@@ -54,10 +42,10 @@ export default function ItemListFilterCategory({ prods, onFilterCategory }) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {categories.map(category => {
-                     return(<Link key={category} to={"categories/"+category}>
-                        <MenuItem  onClick={handleClose} className="menuButtons">{category}</MenuItem>
-                     </Link>)
+                {categoryFilters.map(category => {
+                     return(
+                        <MenuItem key={category} onClick={handleClose} className="menuButtons">{category}</MenuItem>
+                     )
                 })}
 
             </Menu>

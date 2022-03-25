@@ -6,34 +6,32 @@ export function CartContextProvider({ children }) {
     let [itemsInCart, setItemsInCart] = useState([])
 
     function onAdd(itemsToAdd) {
-
         let existingItems = itemsInCart.find(item => item.itemID === itemsToAdd.itemID)
-        let newIntemsInCart = []
-
+        let newIntemsInCart        
+        
         if (existingItems !== undefined) {
             existingItems.itemAmount += itemsToAdd.itemAmount
             existingItems.itemPrice += itemsToAdd.itemPrice
+            setItemsInCart(existingItems)
         } else {
             newIntemsInCart = [...itemsInCart, itemsToAdd];
+            setItemsInCart(newIntemsInCart)
         }
-
-        setItemsInCart(newIntemsInCart)
+        
     }
 
     function onDelete(itemToDelete) {
         let existingItems = itemsInCart.findIndex(item => item.itemID === itemToDelete.itemID)
-        let newIntemsInCart = []
 
         if (existingItems !== undefined) {
             itemsInCart.splice(existingItems)
-            newIntemsInCart = itemsInCart;
+            setItemsInCart([...itemsInCart])
         }
-
-        setItemsInCart(newIntemsInCart)
+        
     }
 
     return (
-        <CartContext.Provider value={{ itemsInCart, onAdd, onDelete }}>
+        <CartContext.Provider value={{ itemsInCart, setItemsInCart, onAdd, onDelete }}>
             {children}
         </CartContext.Provider>
     )

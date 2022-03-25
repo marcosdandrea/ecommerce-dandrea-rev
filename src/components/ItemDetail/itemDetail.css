@@ -22,6 +22,10 @@
     text-transform:uppercase;
 }
 
+.btnGoToCart{
+    width: 100%;
+}
+
 .productTitle{
     width: 100%;
     background-color:rgb(231, 231, 231);

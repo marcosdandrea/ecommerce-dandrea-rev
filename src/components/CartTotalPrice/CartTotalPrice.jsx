@@ -1,20 +1,14 @@
 import React from 'react'
-import { Typography, Button } from '@mui/material'
+import { Typography, Button, Paper } from '@mui/material'
 import './cartTotalPrice.css'
 
-export default function CartTotalPrice({ totalPrice }) {
+export default function CartTotalPrice({ totalPrice, checkOutEnabled, checkOut }) {
   let pesosArgentinos = Intl.NumberFormat('es-AR');
-
-  if (totalPrice === 0) {
     return (
-      <Typography>Aún no hay items en tu carrito de compras...</Typography>
-    )
-  } else {
-    return (
-      <div className="totalPrice">
+      <Paper className="totalPrice">
         <Typography><strong>Total Price: ${pesosArgentinos.format(totalPrice)}</strong></Typography>
-        <Button variant="contained">Proceed to Checkout</Button>
-      </div>
+        <Button onClick={checkOut} className="btnProceed" variant="contained" disabled={!checkOutEnabled} >Proceed to Checkout</Button>
+      </Paper>
     )
-  }
+  
 }

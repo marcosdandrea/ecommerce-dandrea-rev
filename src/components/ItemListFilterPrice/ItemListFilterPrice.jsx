@@ -17,8 +17,12 @@ export default function ItemListFilterPrice({ maxPrice, minPrice, onFilterPrice 
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        onFilterPrice(value)
+        
     };
+    
+    const applyChange = () =>{
+        onFilterPrice(value)
+    }
 
     return (
 
@@ -28,6 +32,7 @@ export default function ItemListFilterPrice({ maxPrice, minPrice, onFilterPrice 
                     getAriaLabel={() => 'Price range'}
                     value={value}
                     onChange={handleChange}
+                    onMouseUp={applyChange}
                     valueLabelDisplay="auto"
                     step={100}
                     marks

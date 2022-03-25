@@ -15,7 +15,7 @@ export default function ItemDetail(props) {
         setBuyMode(true)
         onAdd(
             {
-                "itemID": currentItem.id,
+                "itemID": currentItem.itemID,
                 "itemName": currentItem.title,
                 "itemAmount": selectedAmount,
                 "itemPrice": currentItem.price,
@@ -82,6 +82,7 @@ export default function ItemDetail(props) {
             <Button
             variant="contained"
             color="success"
+            className="btnGoToCart"
             >Terminar Compra</Button>
             </Link>}
         </Stack>

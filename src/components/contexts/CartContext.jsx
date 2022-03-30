@@ -8,15 +8,18 @@ export function CartContextProvider({ children }) {
     function onAdd(itemsToAdd) {
         let existingItems = itemsInCart.find(item => item.itemID === itemsToAdd.itemID)
         let newIntemsInCart        
-        
+
         if (existingItems !== undefined) {
             existingItems.itemAmount += itemsToAdd.itemAmount
             existingItems.itemPrice += itemsToAdd.itemPrice
-            setItemsInCart(existingItems)
+            newIntemsInCart = [...itemsInCart];
+            setItemsInCart(newIntemsInCart)
         } else {
             newIntemsInCart = [...itemsInCart, itemsToAdd];
             setItemsInCart(newIntemsInCart)
         }
+
+        
         
     }
 
@@ -29,7 +32,7 @@ export function CartContextProvider({ children }) {
         }
         
     }
-
+    console.log (itemsInCart)
     return (
         <CartContext.Provider value={{ itemsInCart, setItemsInCart, onAdd, onDelete }}>
             {children}

@@ -32,7 +32,7 @@ export function CartContextProvider({ children }) {
         }
         
     }
-    console.log (itemsInCart)
+
     return (
         <CartContext.Provider value={{ itemsInCart, setItemsInCart, onAdd, onDelete }}>
             {children}

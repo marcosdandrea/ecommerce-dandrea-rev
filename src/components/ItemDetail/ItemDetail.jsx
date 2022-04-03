@@ -75,7 +75,7 @@ export default function ItemDetail(props) {
             </Stack>
             {buyMode === false ? <ItemAmountSelector 
                     buyMode={buyMode}
-                    initialValue={0}
+                    initialValue={1}
                     stock={currentItem.stock}
                     onAdd={_onAdd}
             /> : <Link to="/cart" className="btnGoToCart">
